@@ -14,3 +14,5 @@ window.$ = window.jQuery = require('jquery');
 
 //import html2canvas from 'html2canvas';
 window.html2canvas = require('html2canvas');
+
+require('jstree');
