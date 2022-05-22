@@ -15,4 +15,4 @@ use App\Http\Controllers\DamierContoller;
 */
 
 
-Route::match(['get', 'post'], '/', [DamierContoller::class, 'form'])->name('damier');
+Route::match(['get', 'post'], 'damier', [DamierContoller::class, 'form'])->name('damier');
