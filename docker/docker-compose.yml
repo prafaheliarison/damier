@@ -1,0 +1,48 @@
+version: '3.3'
+
+services:
+
+  solar_center_web:
+    build:
+      context: ./solar_center_web
+      dockerfile: Dockerfile
+    container_name: solar_center_web
+    hostname: solar_center
+    domainname: solar_center.lo
+    command: nginx -g "daemon off;"
+    links:
+      - solar_center_php
+    ports:
+      - "8003:80"
+    volumes:
+      - ../:/var/www/html/
+    networks:
+      - solar_center_network
+
+  solar_center_php:
+    build:
+      context: ./solar_center_php
+      dockerfile: Dockerfile
+    container_name: solar_center_php
+    links:
+      - solar_center_cache
+    volumes:
+      - ../:/var/www/html
+    working_dir: /var/www/html/
+    command: php-fpm
+    environment:
+      MEMCACHED_HOST: solar_center_cache
+      CACHE_DRIVER: memcached
+    networks:
+      - solar_center_network
+      - backend
+
+  solar_center_cache:
+    image: memcached
+    container_name: solar_center_cache
+
+networks:
+  solar_center_network:
+    driver: bridge
+  backend:
+    driver: bridge
