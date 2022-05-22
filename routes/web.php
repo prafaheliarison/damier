@@ -16,3 +16,4 @@ use App\Http\Controllers\DamierContoller;
 
 
 Route::match(['get', 'post'], 'damier', [DamierContoller::class, 'form'])->name('damier');
+Route::match(['get', 'post'], 'tree-view', [TreeViewController::class, 'form'])->name('treeView');
